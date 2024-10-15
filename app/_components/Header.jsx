@@ -111,7 +111,7 @@ const Header = () => {
 
 
             <LoginLink>              
-              login
+              <Button>Get Started</Button>
               </LoginLink>
             
               : "no"
