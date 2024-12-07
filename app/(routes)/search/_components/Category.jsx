@@ -1,5 +1,5 @@
 'use client'
-import GlobalApi from '@/app/_utils/GlobalApi'
+import GlobalApi from '@/app/_utils/db'
 import React, { useEffect, useState } from 'react'
 
 import {
@@ -44,18 +44,18 @@ function Category() {
 
           <CommandItem>
             <Link
-            href={'/search/' + category.attributes?.Name}
+            href={'/search/' + category.Name}
             key={index}
             className={`flex p-2 gap-4 items-center
             text-blue-600 rounded-md cursor-pointer w-full
-            ${params.cname == category.attributes.Name && 'bg-blue-100'}
+            ${params.cname == category.Name && 'bg-blue-100'}
             
             `}>
 
-              <Image src={category.attributes?.Icon?.data?.attributes?.url} width={40} height={40}/>
+              <Image src={category.Icon.url} width={40} height={40}/>
 
               <label>
-            {category.attributes?.Name}
+            {category.Name}
 
               </label>
 

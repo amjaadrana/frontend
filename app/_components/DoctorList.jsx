@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import GlobalApi from '../_utils/GlobalApi'
+import GlobalApi from '../_utils/db'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 
@@ -10,16 +10,23 @@ function DoctorList({heading="Popular doctor"}) {
   const [doctorList, setdoctorList] = useState([])
 
   useEffect(()=>{
+    const getDoctorList=()=>{
+      GlobalApi.getDoctor().then((res)=>{
+         console.log(res.data.data)
+        setdoctorList(res.data.data)
+      })
+    }
     getDoctorList()
-  })
-  const getDoctorList=()=>{
-    GlobalApi.getDoctor().then((res)=>{
-      // console.log(res)
+  },[])  
 
-      setdoctorList(res.data.data)
-    })
-
-  }
+  // const getDoctorList=async()=>{
+  //   try {
+  //     const res=await GlobalApi.getDoctor();
+  //     setdoctorList(res.data.data)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   return (
     <div className="mt-10 px-8 ">
@@ -32,7 +39,7 @@ function DoctorList({heading="Popular doctor"}) {
             key={index}
           >
             <Image
-              src={Doctor.attributes?.image?.data?.attributes?.url}
+              src={Doctor.image?.url}
               alt="Doctor Image"
               width={500}
               height={200}
@@ -41,14 +48,14 @@ function DoctorList({heading="Popular doctor"}) {
 
             <div className="mt-3 items-baseline flex flex-col ">
               <h2 className="text-[14px] font-bold bg-blue-100 text-primary rounded-full px-2">
-                {Doctor.attributes?.categories?.data?.attributes?.Name}
+                {Doctor.categories?.Name}
               </h2>
-              <h2 className="font-bold ">{Doctor.attributes?.Name}</h2>
+              <h2 className="font-bold ">{Doctor.Name}</h2>
               <h2 className="text-primary text-sm">
-                {Doctor.attributes?.Year_of_Experience}
+                {Doctor.Year_of_Experience}
               </h2>
               <h2 className="text-gray-500 text-sm">
-                {Doctor.attributes?.Address}
+                {Doctor.Address}
               </h2>
 
               <Button

@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import DoctorsByCategory from '@/app/(routes)/search/_components/DoctorsByCategory'
-import GlobalApi from '@/app/_utils/GlobalApi'
+import GlobalApi from '@/app/_utils/db'
 
 
 function Search({params}) {

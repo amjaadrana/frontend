@@ -1,54 +1,40 @@
-// import React from 'react';
-
-// const Testimonial = () => {
-//   return (
-//     <div className="bg-gray-100 py-12">
-//       <div className="max-w-lg mx-auto text-center">
-//         <h2 className="text-3xl font-bold mb-4">What our customers say</h2>
-//         <div className="flex flex-wrap justify-center mb-8">
-//           <div className="w-full md:w-1/2 xl:w-1/3 p-4">
-//             <div className="bg-white rounded-lg shadow-md p-4">
-//               <p className="text-lg font-medium mb-2">"I've never been happier with a product!"</p>
-//               <p className="text-gray-600">- John Doe</p>
-//             </div>
-//           </div>
-//           <div className="w-full md:w-1/2 xl:w-1/3 p-4">
-//             <div className="bg-white rounded-lg shadow-md p-4">
-//               <p className="text-lg font-medium mb-2">"This product has changed my life!"</p>
-//               <p className="text-gray-600">- Jane Smith</p>
-//             </div>
-//           </div>
-//           <div className="w-full md:w-1/2 xl:w-1/3 p-4">
-//             <div className="bg-white rounded-lg shadow-md p-4">
-//               <p className="text-lg font-medium mb-2">"I'm so impressed with the quality!"</p>
-//               <p className="text-gray-600">- Bob Johnson</p>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Testimonial;
-
-// components/Testimonial.js
+"use client";
 import React from 'react';
+import { Star } from 'lucide-react';
 
-const Testimonial = () => {
-  return (
-    <div className="testimonial">
-      <div className="testimonial-image">
-        <img src="/bg1.png" alt="Patient Image" />
-      </div>
-      <div className="testimonial-content">
-        <p>
-          "I was blown away by the exceptional care I received from Dr. Smith. The appointment was seamless and the staff were friendly and professional. I highly recommend this practice!"
-        </p>
-        <p className="testimonial-author">- Emily R., Happy Patient</p>
+const Testimonial = ({ name, rating, comment }) => (
+  <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="flex items-center mb-4">
+      <h3 className="text-lg font-semibold mr-2">{name}</h3>
+      <div className="flex">
+        {[...Array(rating)].map((_, i) => (
+          <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+        ))}
       </div>
     </div>
+    <p className="text-gray-600">{comment}</p>
+  </div>
+);
+
+const Testimonials = () => {
+  const testimonials = [
+    { name: "John Doe", rating: 5, comment: "Excellent service! The doctors are very professional and caring." },
+    { name: "Jane Smith", rating: 5, comment: "Easy to book appointments and friendly staff. Highly recommended." },
+    { name: "Mike Johnson", rating: 5, comment: "Top-notch medical care. I'm very satisfied with my experience." },
+  ];
+
+  return (
+    <section className="bg-gray-100 py-12">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-8">What Our Patients Say</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {testimonials.map((testimonial, index) => (
+            <Testimonial key={index} {...testimonial} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
-export default Testimonial;
+export default Testimonials;

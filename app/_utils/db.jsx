@@ -8,13 +8,16 @@ const axiosClient=axios.create({
     }
 })
 
+
 const searchCategory=()=>axiosClient.get('/categories?populate=*');
 const getDoctor=()=>axiosClient.get('/doctors?populate=*');
-const getDoctorByCategory=(category)=>axiosClient.get('/doctors?filters[categories][Name][$in]='+category+"&populate=*"); 
 
+const getDoctorByCategory=(category)=>axiosClient.get('/doctors?filters[categories][Name][$in]='+category+"&populate=*"); 
+const addDoctor=()=>axiosClient.post('/doctors?populate=*');
 // const getDoctorBYCategory=(category)=>axiosClient.get(`/doctors?filters[categories][Name][$in]='+category+"&populate=*"`);
 export default {
     searchCategory,
     getDoctor,
-    getDoctorByCategory
+    getDoctorByCategory,
+    addDoctor
 }

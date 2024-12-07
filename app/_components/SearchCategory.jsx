@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Key, Search } from 'lucide-react'
-import GlobalApi from '../_utils/GlobalApi'
+import GlobalApi from '../_utils/db'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -16,9 +16,6 @@ function SearchCategory() {
 
   const getCategoryList = () => {
     GlobalApi.searchCategory().then((res) => {
-
-      console.log(res.data.data)
-
       setcategoryList(res.data.data)
     })
   }
@@ -42,45 +39,42 @@ function SearchCategory() {
         </div>
       </div>
       <div className="px-8">
-
-        <h2 className=" flex px-4 text-2xl font-bold tracking-wide mt-10 lg:ml-6 ">Categories</h2>
-      <div className="grid grid-cols-3 mt-2 gap-4 md:grid-cols-6 
+        <h2 className="flex px-4 text-2xl font-bold tracking-wide mt-10 lg:ml-6 ">Categories</h2>
+        <div className="grid grid-cols-3 mt-2 gap-4 md:grid-cols-6 
         lg:grid-cols-10 lg:ml-6 px-2">
-        {categoryList.length > 0
-          ? categoryList.map((category ,index) => (
-            
-            <Link 
-            key={index}
-            href={'/search/' + category.attributes?.Name}
-              className="flex flex-col h-36 w-32  border-[2px]
+          {
+          categoryList.length > 0
+            ? 
+            categoryList.map((c) => (
+              <Link
+                key={c.id}               
+                href={'/search/' + c?.Name}
+                className="flex flex-col h-36 w-32  border-[2px]
           rounded-lg p-2 cursor-pointer hover:border-primary
             hover:shadow-sm hover:scale-105 transition-all
             ease-in-out bg-blue-50 "
-            >
-              <Image
-                src={category.attributes?.Icon?.data?.attributes?.url}
-                width={100 }
-                height={100}
-                alt="Icon"
-              />
-              <label
-                className="font-bold  mt-2
-            "
               >
-                {category.attributes?.Name}
-              </label>
-              {/* <h1 >{category.attributes?.doctor?.data?.attributes?.Name}</h1> */}
-              {/* <h1>{category.attributes?.hospital?.data?.attributes?.Name}</h1> */}
-            </Link>
-          ))
-          : [1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-            <div className="h-[100px] bg-slate-200 w-[100px] rounded-md animate-pulse"></div>
-          ))}
+                <Image
+                  src={c?.Icon?.url || '/placeholder-image.jpg'}
+                  width={100}
+                  height={100}
+                  alt={c.attributes?.Name || 'Category Icon'}
+                  className="object-contain h-20 w-20 mx-auto"
+                />
+                <label className="font-bold mt-2 text-center">
+                  {c?.Name}
+                </label>
+              </Link>
+            ))
+            : [1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+              <div key={item} className="h-[100px] bg-slate-200 w-[100px] rounded-md animate-pulse"></div>
+            ))}
+        
+        
+            </div>
       </div>
-      </div>
-
     </div>
   )
 }
-  
+
 export default SearchCategory

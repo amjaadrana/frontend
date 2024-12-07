@@ -4,9 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 
-function DoctorsByCategory({doctorList,heading="Popular doctor"}) {
-  
-  
+function DoctorsByCategory({doctorList,heading="Popular doctor"}) {  
 
   return (
     <div className="mt-5 ml-0 px-2 ">
@@ -19,7 +17,7 @@ function DoctorsByCategory({doctorList,heading="Popular doctor"}) {
             key={index}
           >
             <Image
-              src={Doctor.attributes?.image?.data?.attributes?.url}
+              src={Doctor?.image?.url}
               alt="Doctor Image"
               width={500}
               height={200}
@@ -28,14 +26,14 @@ function DoctorsByCategory({doctorList,heading="Popular doctor"}) {
 
             <div className="mt-3 items-baseline flex flex-col ">
               <h2 className="text-[14px] font-bold bg-blue-100 text-primary rounded-full px-2">
-                {Doctor.attributes?.categories?.data?.attributes?.Name}
+                {Doctor?.categories?.Name}
               </h2>
-              <h2 className="font-bold ">{Doctor.attributes?.Name}</h2>
+              <h2 className="font-bold ">{Doctor?.Name}</h2>
               <h2 className="text-primary text-sm">
-                {Doctor.attributes?.Year_of_Experience}
+                {Doctor?.Year_of_Experience}
               </h2>
               <h2 className="text-gray-500 text-sm">
-                {Doctor.attributes?.Address}
+                {Doctor?.Address}
               </h2>
 
               <Button
